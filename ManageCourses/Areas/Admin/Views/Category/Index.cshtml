@@ -1,0 +1,43 @@
+﻿@model List<category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+<div class="container mb-3">
+    <a asp-action="AddNewCategory" class="btn btn-success">Add New Category</a>
+</div>
+<table class="table table-bordered w-100 text-center">
+    <thead class="bg-gradient bg-primary text-white fw-bolder">
+        <tr>
+            <th>Category Name</th>
+            <th>Category Parent</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.name</td>
+                @try
+                {
+                    <td>@item.parent.name</td>
+                }
+                catch
+                {
+                }
+
+
+                <th>
+                    <a asp-action="UpdateCategory" asp-route-id="@item.id" class="btn btn-warning">Update Category</a>
+                </th>
+                <th>
+                    <a asp-action="DeleteCategory" asp-route-id="@item.id" class="btn btn-danger">Delete Category</a>
+                </th>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

@@ -1,0 +1,43 @@
+﻿@model ManageCourses.Areas.Admin.Models.CategoryVM
+@inject ICategoryRepository repo
+@using ManageCourses.Repository;
+
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+    var i = repo.GetAll();
+    SelectList l = new SelectList(i, nameof(category.id), nameof(category.name));
+}
+
+<h1>Update Category</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateCategory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Parent</label>
+                <select asp-items="l" asp-for="parentId" class="form-control">
+                    <option value="">------ Select Parent ------</option>
+                </select>
+                <span asp-validation-for="parentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
